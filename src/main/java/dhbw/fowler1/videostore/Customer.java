@@ -18,7 +18,7 @@ public class Customer {
 		Enumeration rentals = _rentals.elements();
 		String statement = "Rental Record for " + getName() + "\n";
 		while (rentals.hasMoreElements()) {
-			// double thisAmount = 0;
+			resetAmount();
 			Rental eachRental = (Rental) rentals.nextElement();
 
 			// determine amount for each line
@@ -48,7 +48,7 @@ public class Customer {
 			statement += "\t" + eachRental.getMovie().getTitle() + "\t" + String.valueOf(getAmount()) + "\n";
 			totalAmount += getAmount();
 		}
-		addFooterLines(statement, totalAmount, frequentRenterPoints);
+		statement = addFooterLines(statement, totalAmount, frequentRenterPoints);
 		return statement;
 	}
 	
@@ -58,7 +58,7 @@ public class Customer {
 		Enumeration rentals = _rentals.elements();
 		String statement = "<H1>Rental Record for " + getName() + "</H1>";
 		while (rentals.hasMoreElements()) {
-			// double thisAmount = 0;
+			resetAmount();
 			Rental eachRental = (Rental) rentals.nextElement();
 
 			// determine amount for each line
@@ -88,7 +88,7 @@ public class Customer {
 			statement += "<P>\t" + eachRental.getMovie().getTitle() + "\t" + String.valueOf(getAmount()) + "</P>";
 			totalAmount += getAmount();
 		}
-		addFooterLinesForHtml(statement, totalAmount, frequentRenterPoints);
+		statement = addFooterLinesForHtml(statement, totalAmount, frequentRenterPoints);
 		return statement;
 	}
 
@@ -100,7 +100,7 @@ public class Customer {
 	
 	private String addFooterLines(String result, double totalAmount, int frequentRenterPoints) {
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points\n";
+		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
 		return result;
 	}
 
@@ -118,5 +118,9 @@ public class Customer {
 
 	public void increaseAmount(double increment) {
 		thisAmount += increment;
+	}
+	
+	public void resetAmount() {
+		thisAmount = 0;
 	}
 }
