@@ -97,7 +97,7 @@ public class CustomerTest {
     }
 
     private Rental getRental(String title, int priceCode, int daysRented) {
-        Movie movie = new Movie(title, priceCode);
+        Movie movie = Movie.of(priceCode, title);
         return new Rental(movie, daysRented);
     }
 }

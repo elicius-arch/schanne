@@ -21,22 +21,7 @@ public class Customer {
 			resetAmount();
 			Rental eachRental = (Rental) rentals.nextElement();
 
-			// determine amount for each line
-			switch (eachRental.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				increaseAmount(2);
-				if (eachRental.getDaysRented() > 2)
-					increaseAmount((eachRental.getDaysRented() - 2) * 1.5);
-				break;
-			case Movie.NEW_RELEASE:
-				increaseAmount(eachRental.getDaysRented() * 3);
-				break;
-			case Movie.CHILDRENS:
-				increaseAmount(1.5);
-				if (eachRental.getDaysRented() > 3)
-					increaseAmount((eachRental.getDaysRented() - 3) * 1.5);
-				break;
-			}
+			setAmount(eachRental.getMovie().getPrice(eachRental, getAmount()));
 
 			// add frequent renter points
 			frequentRenterPoints++;
@@ -114,6 +99,10 @@ public class Customer {
 
 	public double getAmount() {
 		return thisAmount;
+	}
+	
+	public void setAmount(double amount) {
+		this.thisAmount = amount;
 	}
 
 	public void increaseAmount(double increment) {
