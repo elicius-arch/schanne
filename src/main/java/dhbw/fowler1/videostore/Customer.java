@@ -6,6 +6,7 @@ import java.util.Vector;
 public class Customer {
 	private String _name;
 	private Vector _rentals = new Vector();
+	private double thisAmount = 0;
 
 	public Customer(String name) {
 		_name = name;
@@ -17,23 +18,23 @@ public class Customer {
 		Enumeration rentals = _rentals.elements();
 		String statement = "Rental Record for " + getName() + "\n";
 		while (rentals.hasMoreElements()) {
-			double thisAmount = 0;
+			// double thisAmount = 0;
 			Rental eachRental = (Rental) rentals.nextElement();
 
 			// determine amount for each line
 			switch (eachRental.getMovie().getPriceCode()) {
 			case Movie.REGULAR:
-				thisAmount += 2;
+				increaseAmount(2);
 				if (eachRental.getDaysRented() > 2)
-					thisAmount += (eachRental.getDaysRented() - 2) * 1.5;
+					increaseAmount((eachRental.getDaysRented() - 2) * 1.5);
 				break;
 			case Movie.NEW_RELEASE:
-				thisAmount += eachRental.getDaysRented() * 3;
+				increaseAmount(eachRental.getDaysRented() * 3);
 				break;
 			case Movie.CHILDRENS:
-				thisAmount += 1.5;
+				increaseAmount(1.5);
 				if (eachRental.getDaysRented() > 3)
-					thisAmount += (eachRental.getDaysRented() - 3) * 1.5;
+					increaseAmount((eachRental.getDaysRented() - 3) * 1.5);
 				break;
 			}
 
@@ -44,8 +45,8 @@ public class Customer {
 				frequentRenterPoints++;
 
 			// show figures for this rental
-			statement += "\t" + eachRental.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
-			totalAmount += thisAmount;
+			statement += "\t" + eachRental.getMovie().getTitle() + "\t" + String.valueOf(getAmount()) + "\n";
+			totalAmount += getAmount();
 		}
 		addFooterLines(statement, totalAmount, frequentRenterPoints);
 		return statement;
@@ -63,5 +64,13 @@ public class Customer {
 
 	public String getName() {
 		return _name;
+	}
+
+	public double getAmount() {
+		return thisAmount;
+	}
+
+	public void increaseAmount(double increment) {
+		thisAmount += increment;
 	}
 }
