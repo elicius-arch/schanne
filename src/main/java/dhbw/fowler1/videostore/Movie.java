@@ -1,7 +1,5 @@
 package dhbw.fowler1.videostore;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 public class Movie {
 	public static final int CHILDRENS = 2;
 	public static final int REGULAR = 0;

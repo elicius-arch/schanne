@@ -11,7 +11,7 @@ public class CustomerTest {
 
     @Before
     public void setUp() throws Exception {
-        customer = new Customer("Arthur Dent");
+        customer = new CustomerNormal("Arthur Dent");
     }
 
     @Test
